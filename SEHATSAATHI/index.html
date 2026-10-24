@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3f7fc">
+  <title>Sehat Saathi | Hospital Visit Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">✚</span>
+      <span>Sehat Saathi<small>Your healthcare companion</small></span>
+    </a>
+    <button id="logoutBtn" class="btn btn-outline hidden">Log out</button>
+  </header>
+
+  <main class="container">
+    <section id="authView" class="auth-layout">
+      <div class="welcome">
+        <span class="eyebrow">YOUR HEALTH, ORGANIZED</span>
+        <h1>Every hospital visit,<br><span>under control.</span></h1>
+        <p>Keep appointments, important documents and visit history together in one simple place.</p>
+        <div class="welcome-points">
+          <p>✓ Never lose track of an appointment</p>
+          <p>✓ Prepare documents before leaving home</p>
+          <p>✓ Keep your hospital visit history organized</p>
+        </div>
+      </div>
+
+      <section class="panel auth-panel">
+        <div class="tabs">
+          <button id="loginTab" class="tab active">Login</button>
+          <button id="registerTab" class="tab">Create account</button>
+        </div>
+        <h2 id="authTitle">Welcome back!</h2>
+        <p class="muted" id="authSubtitle">Log in to manage your visits.</p>
+        <form id="authForm">
+          <label id="nameLabel" class="hidden">Full name
+            <input id="name" maxlength="100" autocomplete="name">
+          </label>
+          <label>Email address
+            <input id="email" type="email" required autocomplete="email">
+          </label>
+          <label>Password
+            <input id="password" type="password" minlength="8"
+              maxlength="128" required autocomplete="current-password">
+          </label>
+          <p id="authMessage" class="message" aria-live="polite"></p>
+          <button id="authSubmit" class="btn btn-primary full">Login to Sehat Saathi</button>
+        </form>
+        <p class="small muted">Your account is private. Keep your password confidential.</p>
+      </section>
+    </section>
+
+    <section id="dashboardView" class="hidden">
+      <div class="dashboard-heading">
+        <div>
+          <span class="eyebrow">YOUR PERSONAL HEALTH SPACE</span>
+          <h1>Hello, <span id="userName">there</span> 👋</h1>
+          <p class="muted">A little preparation makes every visit easier.</p>
+        </div>
+        <button id="notifyBtn" class="btn btn-outline">Enable reminders</button>
+      </div>
+
+      <div class="stats">
+        <article class="stat-card"><span>Upcoming visits</span><strong id="upcomingCount">0</strong><small>Scheduled appointments</small></article>
+        <article class="stat-card"><span>Total visits</span><strong id="totalCount">0</strong><small>Your visit records</small></article>
+        <article class="stat-card"><span>Documents to pack</span><strong id="pendingCount">0</strong><small>For upcoming visits</small></article>
+      </div>
+
+      <div class="main-grid">
+        <section class="panel">
+          <div class="section-heading">
+            <div><h2>Plan a hospital visit</h2><p class="muted">Add your appointment details.</p></div>
+          </div>
+          <form id="visitForm" class="visit-form">
+            <label>Hospital / clinic name *
+              <input name="hospital" required maxlength="150" placeholder="e.g. City Care Hospital">
+            </label>
+            <div class="form-row">
+              <label>Doctor's name
+                <input name="doctor" maxlength="120" placeholder="Dr. Sharma">
+              </label>
+              <label>Department
+                <input name="department" maxlength="120" placeholder="e.g. General Medicine">
+              </label>
+            </div>
+            <label>Appointment date and time *
+              <input name="date" id="visitDate" type="datetime-local" required>
+            </label>
+            <label>Reason for visit
+              <textarea name="reason" rows="3" maxlength="500" placeholder="Routine check-up, follow-up..."></textarea>
+            </label>
+            <label>Remind me
+              <select name="reminderMinutes">
+                <option value="1440">24 hours before</option>
+                <option value="60" selected>1 hour before</option>
+                <option value="30">30 minutes before</option>
+                <option value="15">15 minutes before</option>
+                <option value="0">At appointment time</option>
+              </select>
+            </label>
+            <p class="message" id="visitMessage" aria-live="polite"></p>
+            <button class="btn btn-primary full" type="submit">+ Add appointment</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading">
+            <div><h2>My appointments</h2><p class="muted">Your saved hospital visits.</p></div>
+            <select id="visitFilter" aria-label="Filter appointments">
+              <option value="All">All</option>
+              <option value="Upcoming">Upcoming</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div id="visitList" class="visit-list">
+            <p class="muted">Loading appointments...</p>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel history-panel">
+        <div class="section-heading">
+          <div><h2>Before you leave 🩺</h2><p class="muted">Select an appointment to check its documents.</p></div>
+        </div>
+        <label>Select hospital visit
+          <select id="documentVisit">
+            <option value="">Choose an appointment</option>
+          </select>
+        </label>
+        <div id="documentChecklist" class="checklist">
+          <p class="muted">Your document checklist will appear here.</p>
+        </div>
+      </section>
+
+      <section class="panel tips-panel">
+        <h2>Smart visit tips</h2>
+        <div class="tips-grid">
+          <article><span>📁</span><h3>Keep records ready</h3><p>Carry relevant reports, prescriptions and your appointment confirmation.</p></article>
+          <article><span>⏰</span><h3>Plan your journey</h3><p>Allow time for traffic, registration and hospital check-in.</p></article>
+          <article><span>📝</span><h3>Prepare questions</h3><p>Write down questions you want to ask your healthcare professional.</p></article>
+        </div>
+      </section>
+      <p id="globalMessage" class="message" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>Sehat Saathi © 2026 · Your visits, thoughtfully organized.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
